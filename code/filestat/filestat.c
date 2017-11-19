@@ -59,7 +59,7 @@ int main(int argc, char **argv){
 
     if (argc == 3) {
         if (strcmp(argv[2], "-s") == 0) 
-            useStat = 1; // use the stat() function
+            useStat = 1; // use the stat() function, instead of fstat()
     }
     printf("---------------------------\n");
     if (useStat) {
