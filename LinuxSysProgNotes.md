@@ -52,3 +52,19 @@ Typical call sequences:
 
 **Active socket (client)** call sequence: **socket() -> connect() -> write() -> (read()** if bidirectional**)**
 
+## Host and Network Byte Ordering
+
+Because different systems across a network may use different byte ordering of numeric data (big endian vs little endian) there needs to be a mechanism to make sure this numeric data is consistent between host and network.
+
+* **htonl()** - host to network long (32-bit).  Use for IP address assignment on x86/x64 Linux (or use **inet_addr()**).
+* **htons()** - host to network short (16-bit).  Use for port assignment on x86/x64 Linux.
+* **ntohl()** - network to host long (32-bit)
+* **ntohs()** - network to host short (16-bit)
+
+Note: if you don't use **htons()** for the port assignment on x86/x54 Linux the port assigned will not match the port displayed by the **netstat** utility.  For example, assigning port **5025** will display as port **41235** to netstat.  This is easy to see using hex notation, **5025** is **0x13a1 hex**, and **41235** is **0xa113 hex**.  Since every two digits of hex represent a byte you can see the **13** and **a1** are reversed between the two.
+
+Note: if you use **inet_addr()** to assign the IP address, you don't need to use **htonl**, since **inet_addr()** performs the conversion for you.
+
+Note: on systems where the network and host order are the same, these functions do not peform any conversion, simply passing the number on unchanged.  Therefore, these functions should be used regardless to provide the greatest portability.
+
+
