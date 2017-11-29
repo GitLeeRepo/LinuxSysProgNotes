@@ -55,4 +55,4 @@ dkms.conf
 
 unix_socket_srv
 unix_socket_clnt
-filestat
+filestat/filestat
