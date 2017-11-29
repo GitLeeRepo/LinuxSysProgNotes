@@ -8,12 +8,39 @@ Notes on Linux System Programming.
 
 * [Linux Device Drivers v3](https://lwn.net/Kernel/LDD3/) - print version of the O'Reilly book available [here](https://www.amazon.com/Linux-Device-Drivers-Jonathan-Corbet/dp/0596005903/ref=cm_cr_arp_d_product_top?ie=UTF8).
 
+## YouTube Videos
+
+* [Unix System Calls](https://www.youtube.com/watch?v=xHu7qI1gDPA&t=2422s) - two part series
+
 ## My Other Notes
 
 * [UbuntuNotes](https://github.com/GitLeeRepo/UbuntuNotes/blob/master/UbuntuNotes.md#overview) - General Ubuntu info.
 * [linux_syscalls.txt](https://github.com/GitLeeRepo/LinuxSysProgNotes/blob/master/linux_syscalls.txt) - list of syscalls.
 
-# Linux System Calls
+# Linux/Unix System Calls
+
+System calls are the primary way in which the operating system kernel exposes the functionality it offers to the **user mode** programs.  It provides the mechanism to run operations in **kernel mode** in order to peform instructions which operate on the hardware, cpu, system memory, etc. that would otherwise be hidden from the **user mode** program.  The system call is moved to within the context of the user program's stack, which eliminates the need of an expensive context switch between the two modes.
+
+Based on two standards:
+* **POSIX** - Portable Operating System Interface for Unix
+* **SUS** - Single Unix specification
+
+## Types of System Calls
+
+System calls typically used to deal with the following:
+
+* **Processes** 
+* **Files**
+* **IPC - Interprocess Communication**
+  * **Sockets**
+  * **Pipes**
+  * **Semaphores**
+  * **Shared Memory**
+  * **Message Queues**
+* **Signals**
+* **Terminals**
+* **Threads**
+* **Devices**
 
 ## Complete List of Linux System Calls
 
