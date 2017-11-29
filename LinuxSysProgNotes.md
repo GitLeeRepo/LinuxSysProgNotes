@@ -39,7 +39,14 @@ Sockets are an IPC (interprocess communication) mechanism that allows data to be
 ## Key Socket System Calls
 
 * **socket()** - creates the new socket returning a file descriptor
-* **bind()** - binds the address to a socket, through the sockaddr structure (the generic struct cast to by the specific domain ones) and the socket's file descriptor
+* **bind()** - binds the address to a socket, through the sockaddr structure (the generic struct cast to by the specific domain ones) and the socket's file descriptor.  Typically used by server (passive socket), rather than **connect()**
 * **listen()** - used by stream sockets to accept incomming connections from other sockets
 * **accept()** - accepts the connection from a peer, creating a local socket reference to the peer socket
-* **connect()** - establishes the connection with another socket
+* **connect()** - establishes the connection with another socket. Typically used by client (active socket), rather than **bind()**
+
+Typical call sequences:
+
+**Passive socket (server)** call sequence: **socket() -> bind() -> listen() -> accept() -> read() -> (write()** if bidirectional)
+
+**Active socket (client)** call sequence: **socket() -> connect() -> write() -> (read()** if bidirectional)
+
