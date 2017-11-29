@@ -48,6 +48,27 @@ These are the raw (no wrapper) system calls made through interupt 0x80, setting 
 
 Refer to: [linux_syscalls.txt](https://github.com/GitLeeRepo/LinuxSysProgNotes/blob/master/linux_syscalls.txt) for the complete list.
 
+# Processes
+
+Processes keep track of the following:
+
+* **Address Space** - the virutal address space of the process
+  * **Code**
+  * **Initialized Data**
+  * **Uninitialized Data**
+  * **Heap**
+  * **Stack**
+  * **Kernel SysCall table**
+* **User Ids**
+* **File Descriptors**
+* **Environment**
+* **Current Directory**
+* **Root Directory**
+
+## Creation of New Processes
+
+New processes are creating by making a copy of the parent process (its address space, file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.
+
 # Sockets
 
 Sockets are an IPC (interprocess communication) mechanism that allows data to be exchanged between application, whether on the same host (as in AF_UNIX Unix Domain type socket) or between different hosts over a network (as in the AF_INET and AF_INET6 type sockets for the IPv4 and IPv6 domains respectively).
