@@ -1,12 +1,12 @@
-//  unix_socket_srv.c
+//  tcp_socket_srv.c
 //  
-//  Unix server socket, using tmpfs, for ipc on the same host.  Listens
+//  Network socket, currently set to localhost, for ipc on the same host.  Listens
 //  and echos what the client sends.
 //
-//  Use this in conjunctions with: unix_socket_clnt.c
+//  Use this in conjunctions with: tcp_socket_clnt.c
 
 #include "unix_socket.h"
-#define BACKLOG 5    // size of queued up requests
+#define BACKLOG 5  // size of queued requests
 
 void die(char *msg) {
     printf("%s\n", msg);
@@ -14,26 +14,22 @@ void die(char *msg) {
 }
 
 int main(int argc, char *argv[]) {
-    struct sockaddr_un addr;
+    struct sockaddr_in addr;
     int socketfd, connectfd;
     ssize_t numRead;
     char buf[BUF_SIZE];
 
-    socketfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (socketfd == -1) 
         die("socket error");
 
-    if (strlen(SOCKET_PATH) > sizeof(addr.sun_path) - 1) 
-       die("Server socket path too long");
-
-    if (remove(SOCKET_PATH) == -1 && errno != ENOENT)
-        die("remove error");
-
+    
     memset(&addr, 0, sizeof(struct sockaddr_un));
-    addr.sun_family = AF_UNIX;
-    strncpy(addr.sun_path, SOCKET_PATH, sizeof(addr.sun_path) - 1);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    addr.sin_port = INET_PORT;
 
-    if (bind(socketfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_un)) == -1)
+    if (bind(socketfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_in)) == -1)
         die("bind error");
 
     if (listen(socketfd, BACKLOG) == -1)
