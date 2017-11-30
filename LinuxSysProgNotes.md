@@ -71,7 +71,16 @@ The kernel maintains a **page table** for every processes, which describes the v
 
 ## Creation of New Processes
 
-New processes are creating by making a copy of the parent process (file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.
+New processes are creating by making a copy of the parent process (stack, data, heap, and text segments, along with file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.  On the other hand **exec()** type functions discards the existing programs stack, data, heap, and text segments.  A **fork()** is often followed by an **exec()** type function, but this is not always the case, and in several cases it is useful to do just a **fork()**.
+
+Note that with the **fork()** even though it receives the parents data, environment, etc., it is a copy, and while they start the same they diverge as each process makes its own changes.  However, the code (text segment) is the same for the two processes and does not diverge.
+
+Functions for controlling processes:
+
+* **fork()** - the parent process creating a new child process
+* **execve()** - loads a new program into a processes memory
+* **wait()** - used by a parent to wait on the termination of a child process
+* **exit()** - terminates the process
 
 # Sockets
 
