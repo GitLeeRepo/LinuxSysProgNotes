@@ -58,4 +58,5 @@ unix_socket_clnt
 tcp_socket_srv
 tcp_socket_clnt
 dispenv
+simplefork
 filestat/filestat
