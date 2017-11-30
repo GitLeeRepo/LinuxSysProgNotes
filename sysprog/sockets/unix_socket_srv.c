@@ -1,7 +1,7 @@
 //  unix_socket_srv.c
 //  
-//  Unix server socket, using tmpfs, for ipc on the same host.  Listens
-//  and echos what the client sends.
+//  Unix server socket, using socket file in tmpfs, for ipc 
+//  on the same host.  Listens and echos what the client sends.
 //
 //  Use this in conjunctions with: unix_socket_clnt.c
 
@@ -12,7 +12,7 @@ void die(char *msg) {
     printf("%s\n", msg);
     exit(5);
 }
-
+//test
 int main(int argc, char *argv[]) {
     struct sockaddr_un addr;
     int socketfd, connectfd;
