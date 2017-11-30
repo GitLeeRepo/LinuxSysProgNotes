@@ -52,7 +52,7 @@ Refer to: [linux_syscalls.txt](https://github.com/GitLeeRepo/LinuxSysProgNotes/b
 
 Processes keep track of the following:
 
-* **Address Space** - the virutal address space of the process
+* **Address Space** - the virutal address space of the process (shown here from lowest to highest memory locations)
   * **Code**
   * **Initialized Data**
   * **Uninitialized Data**
@@ -65,9 +65,13 @@ Processes keep track of the following:
 * **Current Directory**
 * **Root Directory**
 
+## Virtual Memory and Processes
+
+The kernel maintains a **page table** for every processes, which describes the virtual memory of each process, as to whether a page is currently in physical memory or has been swapped to disk.  Pages on x86-32bit are 4096 bytes in size.  On IA-64 they are variable in length, with 16,384 bytes being typical.
+
 ## Creation of New Processes
 
-New processes are creating by making a copy of the parent process (its address space, file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.
+New processes are creating by making a copy of the parent process (file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.
 
 # Sockets
 
