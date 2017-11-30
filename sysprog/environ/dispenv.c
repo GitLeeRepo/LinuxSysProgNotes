@@ -1,6 +1,7 @@
 // dispenv.c
 //
 // Display a list of enviroment variables using the C run-time 'environ' global variable
+// Also, shows the use of getenv() to display the value of a specific enviroment variable.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     for (ep = environ; *ep != NULL; ep++)
         puts(*ep);
 
+    // use getenv() to display the value of the 'SHELL' environment variable
     printf("\n\nUsing getenv() to return value of 'SHELL': %s\n", getenv("SHELL"));
     exit(0);
 }
