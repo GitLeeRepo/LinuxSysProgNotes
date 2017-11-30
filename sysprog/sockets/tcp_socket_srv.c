@@ -15,41 +15,49 @@ void die(char *msg) {
 
 int main(int argc, char *argv[]) {
     struct sockaddr_in addr;
-    int socketfd, connectfd;
+    int socketfd, clientfd;
     ssize_t numRead;
     char buf[BUF_SIZE];
 
+    // create socket
     socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (socketfd == -1) 
         die("socket error");
 
-    
-    memset(&addr, 0, sizeof(struct sockaddr_un));
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    addr.sin_port = INET_PORT;
 
+    // initialize address structure
+    memset(&addr, 0, sizeof(struct sockaddr_in));
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr("127.0.0.1");  // alternative use const INADDR_ANY (0.0.0.0)
+    addr.sin_port = htons(INET_PORT);  //htons to ensure network and host byte order the same
+
+    // bind socket to address
     if (bind(socketfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_in)) == -1)
         die("bind error");
 
+    // listen on this socket
     if (listen(socketfd, BACKLOG) == -1)
         die("listen error");
 
     while (1) {      
 
-        // Listen on socketfd, creating a new socket connectfd on client connection
-        connectfd = accept(socketfd, NULL, NULL);
-        if (connectfd == -1)
+        // accept a client connectin, giving it a file descriptor
+        // execution pauses here until client accepted
+        clientfd = accept(socketfd, NULL, NULL);
+        if (clientfd == -1)
             die("accept error");
 
-        while ((numRead = read(connectfd, buf, BUF_SIZE)) > 0)
+        // read from the client socket
+        // execution stays here until client closes connection
+        while ((numRead = read(clientfd, buf, BUF_SIZE)) > 0)
             if (write(STDOUT_FILENO, buf, numRead) != numRead)
-                die("partial/failed write");
+                die("write error");
 
         if (numRead == -1)
             die("read error");
 
-        if (close(connectfd) == -1)
+        if (close(clientfd) == -1)
             die("close error");
     }
 }
+

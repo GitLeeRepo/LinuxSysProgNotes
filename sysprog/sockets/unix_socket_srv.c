@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     ssize_t numRead;
     char buf[BUF_SIZE];
 
+    // create socket
     socketfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (socketfd == -1) 
         die("socket error");
@@ -29,26 +30,32 @@ int main(int argc, char *argv[]) {
     if (remove(SOCKET_PATH) == -1 && errno != ENOENT)
         die("remove error");
 
+    // initialize address structure
     memset(&addr, 0, sizeof(struct sockaddr_un));
     addr.sun_family = AF_UNIX;
     strncpy(addr.sun_path, SOCKET_PATH, sizeof(addr.sun_path) - 1);
 
+    // bind socket to address
     if (bind(socketfd, (struct sockaddr *) &addr, sizeof(struct sockaddr_un)) == -1)
         die("bind error");
 
+    // Listen on socketfd, creating a new socket connectfd on client connection
     if (listen(socketfd, BACKLOG) == -1)
         die("listen error");
 
     while (1) {      
 
-        // Listen on socketfd, creating a new socket connectfd on client connection
+        // accept a client connectin, giving it a file descriptor
+        // execution pauses here until client accepted
         connectfd = accept(socketfd, NULL, NULL);
         if (connectfd == -1)
             die("accept error");
 
+        // read from the client socket
+        // execution stays here until client closes connection
         while ((numRead = read(connectfd, buf, BUF_SIZE)) > 0)
             if (write(STDOUT_FILENO, buf, numRead) != numRead)
-                die("partial/failed write");
+                die("write error");
 
         if (numRead == -1)
             die("read error");
