@@ -69,16 +69,22 @@ Processes keep track of the following:
 
 The kernel maintains a **page table** for every processes, which describes the virtual memory of each process, as to whether a page is currently in physical memory or has been swapped to disk.  Pages on x86-32bit are 4096 bytes in size.  On IA-64 they are variable in length, with 16,384 bytes being typical.
 
+## Process Ownership
+
+Each process is associated with a UID (user id) and has the privileges and permissions of that user.  The process actually divides this into three different ids, the **real id** of the owner, the **effective id** which determines the privileges, and the **saved id** which is which is set by **exec** to match the **effective id**.  This division allows certain programs to run with a different privilege if the executable's binary file has a **setuid** bit set. This allows a program to perform a specific task that would otherwise require elevated privileges, without having to give the user themselves those privileges.
+
 ## Creation of New Processes
 
-New processes are creating by making a copy of the parent process (stack, data, heap, and text segments, along with file descriptors, environemnt, etc), using **fork()**.  Note that actual data itself is not copied, but a table of references to the parent data, therefore it is a fairly efficient call.  On the other hand **exec()** type functions discards the existing programs stack, data, heap, and text segments.  A **fork()** is often followed by an **exec()** type function, but this is not always the case, and in several cases it is useful to do just a **fork()**.
+New processes are creating by making a copy of the parent process (stack, data, heap, and text segments, along with file descriptors, environemnt, etc), using **fork()**.  On the other hand **exec()** type functions discards the existing programs stack, data, heap, and text segments.  A **fork()** is often followed by an **exec()** type function, but this is not always the case, and in several cases it is useful to do just a **fork()**.
 
-Note that with the **fork()** even though it receives the parents data, environment, etc., it is a copy, and while they start the same they diverge as each process makes its own changes.  However, the code (text segment) is the same for the two processes and does not diverge.
+Note that with the **fork()** even though it receives the parents data, environment, etc., it is a copy, and while they start the same they diverge as each process makes its own changes.  However, the code (text segment) is the same for the two processes and does not diverge.  It is also important to note that each is running in its own **virtual memory space**.
+
+Note for efficiency the actual data itself is not copied from parent to child, but a table of references to the parent data.  So they are initially pointing to the same physical memory location (or page file location) and will remain so as long as the data is not changed by either process.  But once a change does occur these storage locations must diverge into separate physical locations.  This is handled by marking the pages in the new process as **copy on write** which means they will be copied to the new location if they are changed by either process.
 
 Functions for controlling processes:
 
-* **fork()** - the parent process creating a new child process
-* **execve()** - loads a new program into a processes memory
+* **fork()** - the parent process creating a new child process, they both continue run the same program code
+* **execve()** - this does NOT create a new proceess, but loads a new program into an existing processes memory, such as in the case of a newly forked child process.  The parents original code and data are discard with a new executable loaded.  It does retain the parents environment and file descriptors.  
 * **wait()** - used by a parent to wait on the termination of a child process
 * **exit()** - terminates the process
 
