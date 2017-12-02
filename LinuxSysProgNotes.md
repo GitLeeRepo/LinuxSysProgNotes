@@ -31,11 +31,15 @@ At the lower level, system calls in x86 architectures are handled by interupt 0x
 
 At the higher level, these system calls are wrapped in calls handled by the C library (libc, i.e., **glibc** on Linux).  Most higher level languages access the system calls through the **glibc** library, not just C and C++ programs.  Many of the higher level languages and interpreters are written in C and/or C++.
 
-Based on two standards:
-* **POSIX** - Portable Operating System Interface for Unix
-* **SUS** - Single Unix specification
+Based on two Unix standards:
+* **POSIX** - Portable Operating System Interface for Unix.  Linux supports **POSIX 2008**.
+* **SUS** - Single Unix specification. Linux suppors **SUSv4**.
+
+With regards to the C standards, the **gcc C compiler** is **ISO C99** complient, with some support for **C11**, in addition it supports C language extensions, such as inline assembly, tha are referred to as **GNU C**
 
 ## Types of System Calls
+
+Linux has a level of abstraction that treats almost everything related to system calls as files, in addition to what are termed **regular files**.  It interfaces with many things, including **sockets**, and **devices**, using **file descriptors** to open and use them.
 
 System calls typically used to deal with the following:
 
@@ -57,6 +61,39 @@ System calls typically used to deal with the following:
 These are the raw (no wrapper) system calls made through interupt 0x80, setting the AX register to the id of the corresponding system call.
 
 Refer to: [linux_syscalls.txt](https://github.com/GitLeeRepo/LinuxSysProgNotes/blob/master/linux_syscalls.txt) for the complete list.
+
+# Files
+
+While Unix/Linux treat many things as files, inlcuding devices and sockets, this section is concerned with **regular files**, **directories**, and **links**.
+
+A linux file system is a **byte oriented** file system, unlike some file systems such as IBM's MVS which is record oriented.  File sizes are mesured in bytes and can have its length adjusted (both increased and decreased) using **truncation**, which in the case of lengthening zero (null) fills the added space.
+
+A single file can be opened multiple times, either from multiple processes or within the same process, with each opened instance of a file given its own **file descriptor**, with a single **file descriptor** also capable of being shared across multiple processes (i.e., opened by one process, but read/written by other processes).
+
+Files and directories are directly accessed by **inodes**, not the filename itself.  Filenames are linked to **inodes** in the **directory** file (remembering the the directory is itself a file, which must also be linked to an **inode**).  The **indode** contains all other information on a file, except for its filename, such as its size, permissions, owner, timestamps, and pointers to the actual disk blocks that contain the files data (a large file will have many pointers to various blocks of data on disk).  **Inodes** are unique to the filesystem, but not unique across filesystems.
+
+**Inodes** for files and directories can be list using the **ls -i** or **ls -li** options.  The number of **inodes** on a given file system is limitted.  You can see the total number and avaiable number of **inodes** on a given filesystem with the following command:
+
+```bash
+df -i
+```
+
+## Links
+
+* **Hard links** map multiple filenames to the same **inode**, which maintains a count of the number of links to it.  When a **delete** operation is performed on a **filename** it does an **unlink** between a filename and the inode and decrements the link count.  When this link count reaches zero, the **inode** itself is removed.  Because **inodes** can not span multiple filesystems, **hard links** can only be made to files on the same file system.
+* **Symbolic links** - a **symbolic link** has its own **inode** and contains the complete path to the file being linked to.  They can link to files on other filesystems.  They can also link to non-existent files which is called a **broken link**
+
+## Special Files
+
+As mentioned earlier, this section is concerned with **regular files*, **directories**, and **links**, but a list of other types of files, called **special files** is mentioned briefly here, they will be dealt with in more detail in their own sections.
+
+Special files are of four types:
+
+* **block devices** - accessed as an **array of bytes** and are typically **storage devices** such as harddisks, cdroms, and flash memory.  Block devices do not need to be accessed in a linear manner, but can be accessed based on the **location within the array of bytes**.
+* **character devices** - accessed as a stream of bytes using a queue (FIFO) in a **linear** manner.   They include **keyboards** and **terminals**.
+* **named pipes** - a **regular pipe** as used when piping data between programs on the command line is stored in memory, whereas a **named pipe** is a **special file** that can be accessed on the filesystem by multiple processes for **IPC (interprocess communication** purposes.
+* **Unix domain sockets** - sockets in general are an **IPC** mechanism for communicating between two proceses, whether on the same host or across a network.  **Unix domain sockets** are used to communicate on the same host and use a **special file** on the file system, whereas **network sockets** are NOT special files on the file system, but rather an address to a host and port.
+
 
 # Processes
 
