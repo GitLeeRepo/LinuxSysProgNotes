@@ -98,24 +98,32 @@ Special files are of four types:
 
 A **filesystem** is a collection of files and directories contained within a hierchial **namespace**.  There is a single (root) namespace in which all filesystems are **mounted** to a **mount point** within the root namespace.  There is only one required **root filesystem**, but a system will typically have multiple filesystems.  A filesystem does not have to reside on disk, it can exist in memory or in another network location.
 
-**Filesystems** are block devices with the smallest addressable unit being a **sector**, which must be a **power of 2** size, with **512 bytes** being typical.  The smallest **logically addressable** unit is a **block** which is typically a **power of 2** multiple of the sector size, with **512**, **1024** and **4096** bytes being typical.
+**Filesystems** are block devices with the smallest addressable unit being a **sector**, which must be a **power of 2** size, with **512 bytes** being typical.  The smallest **logically addressable** unit is a **block** which is typically a **power of 2** multiple of the sector size, with **512**, **1024** and **4096** bytes being typical.  The **block** size must be smaller than the **page** sized which is the **virtual memory** swapable files.
 
 # Processes
 
-Processes keep track of the following:
+Processes are executable object code, and its associated data and resources, they keep track of the following:
 
 * **Address Space** - the virutal address space of the process (shown here from lowest to highest memory locations)
-  * **Code**
-  * **Initialized Data**
-  * **Uninitialized Data**
-  * **Heap**
-  * **Stack**
-  * **Kernel SysCall table**
-* **User Ids**
-* **File Descriptors**
-* **Environment**
-* **Current Directory**
+  * **Code** - stored in the **text segment** of memory and originating in the binary excuatble file.
+  * **Initialized Data** - stored in the **data segment** of memory with the initial values loaded from the binary file.
+  * **Uninitialized Data** - stored in the **bss segement** of memory, but not found in the binary file since they are all initilized to zero.
+  * **Heap** - dynamically allocated memory
+  * **Stack** - local variables and function return addresses
+  * **Kernel SysCall table** - stored in **user space** to facilitate calls into **kernel space**
+* **User Ids** - for ownership and permissions available to the process
+* **File Descriptors** - integer references to open files
+* **Environment** - environment variables
+* **Current Directory** 
 * **Root Directory**
+
+Because Linux is a **pre-emptive multitasking** and **virtual memory** operating system, each process appears to have sole control of the system resources and memory, although the kenel is give multiple process access to the system and its memory through the **scheduler** which gives each process a slice of processor time.
+
+Process are created using a hierarch of process in a parent/child relationship, with all processes being a decendent of the **init** process.  New processes are create with the **fork()** system call which creates a copy of the parent (details in subsequent section).  When the child terminates it returns its status to the parent.  If the parent terminated first, by not properly waiting on the child process to terminate first, the child becomes a **zombie** process that becomes the responsibilty of the **init** process to eventually terminate.
+
+## Threads
+
+Most Unix programs have been **single threaded** since process creation typically has low overhead, and because of IPC mechanism that facilitate interprocess communications.  A **thread** has its own **stack** for storing local variables, processor state and instruction pointer to the current line of execution, but most of the remaining resources are **shared** with other threads in the process, including its virtual address space, meaning they access the same non-locally stored stack data.
 
 ## Virtual Memory and Processes
 
