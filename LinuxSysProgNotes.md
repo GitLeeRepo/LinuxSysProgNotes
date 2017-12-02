@@ -94,6 +94,11 @@ Special files are of four types:
 * **named pipes** - a **regular pipe** as used when piping data between programs on the command line is stored in memory, whereas a **named pipe** is a **special file** that can be accessed on the filesystem by multiple processes for **IPC (interprocess communication** purposes.
 * **Unix domain sockets** - sockets in general are an **IPC** mechanism for communicating between two proceses, whether on the same host or across a network.  **Unix domain sockets** are used to communicate on the same host and use a **special file** on the file system, whereas **network sockets** are NOT special files on the file system, but rather an address to a host and port.
 
+## Filesystems and Namespaces
+
+A **filesystem** is a collection of files and directories contained within a hierchial **namespace**.  There is a single (root) namespace in which all filesystems are **mounted** to a **mount point** within the root namespace.  There is only one required **root filesystem**, but a system will typically have multiple filesystems.  A filesystem does not have to reside on disk, it can exist in memory or in another network location.
+
+**Filesystems** are block devices with the smallest addressable unit being a **sector**, which must be a **power of 2** size, with **512 bytes** being typical.  The smallest **logically addressable** unit is a **block** which is typically a **power of 2** multiple of the sector size, with **512**, **1024** and **4096** bytes being typical.
 
 # Processes
 
