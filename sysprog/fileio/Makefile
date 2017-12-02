@@ -6,7 +6,7 @@
 # Only recompiles the specified files and header if they have changed since last compile
 
 EXE = copyfile readstdin
-#INCFILES = unix_socket.h
+INCFILES =
 CC=gcc
 CFLAGS = -gdwarf -Wall
 
@@ -18,7 +18,7 @@ info:
 	@echo "Info: make for: $(EXE)"
 
 # compile happens here
-${EXE}: # $(INCFILES) 
+${EXE}: $(INCFILES) 
 
 clean:
 	$(RM) $(EXE)

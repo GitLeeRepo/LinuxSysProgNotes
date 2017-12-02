@@ -53,8 +53,11 @@ dkms.conf
 
 # Executables
 
+calledbyexec
 copyfile
 dispenv
+execprog
+execself
 filestats
 multiprog
 readstdin
