@@ -148,6 +148,12 @@ Functions for controlling processes:
 * **wait()** - used by a parent to wait on the termination of a child process
 * **exit()** - terminates the process
 
+# Signals
+
+**Signals** are a means of **asynchronous notification** to a process to inform it of some event.  They are the means by which the kernel signals the programs of events such as **segmentation faults**.  They can also be used by processes to send a signal to another process.
+
+**Signals** stop the execution of the program performing either a predefined action, such as terminating a program, or calling a user defined handler for that signal.  Some signals such as **SIGKILL** and **SIGSTOP** will always terminate or stop the process, but many other can be handled by the process, including choosing to ignore the signal.
+
 # Sockets
 
 Sockets are an IPC (interprocess communication) mechanism that allows data to be exchanged between application, whether on the same host (as in AF_UNIX Unix Domain type socket) or between different hosts over a network (as in the AF_INET and AF_INET6 type sockets for the IPv4 and IPv6 domains respectively).
