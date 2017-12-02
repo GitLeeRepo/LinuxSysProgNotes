@@ -59,6 +59,7 @@ dispenv
 execprog
 execself
 filestats
+forkexec
 multiprog
 readstdin
 simplefork

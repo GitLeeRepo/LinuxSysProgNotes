@@ -7,12 +7,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 static int inDataSeg = 100;  
 
 int main(int argc, char *argv[]) {
     int inStackSeg = 400; 
     pid_t childPid;
+    int status = 0;
 
     // on success the process id of the child is returned to the parent
     // and zero is returned from the fork in the child (a call in the child
@@ -28,7 +31,7 @@ int main(int argc, char *argv[]) {
         break;
 
     default:             // parent comes here
-        sleep(3);           
+        wait(&status);           
         break;
     }
 

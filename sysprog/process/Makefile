@@ -5,7 +5,7 @@
 # The implicit CC and CFLAGS are redefined here, while RM uses the default 'rm -f'
 # Only recompiles the specified files and header if they have changed since last compile
 
-EXE = simplefork multiprog calledbyexec execprog execself
+EXE = simplefork multiprog calledbyexec execprog execself forkexec
 INCFILES =
 CC=gcc
 CFLAGS = -gdwarf -Wall
