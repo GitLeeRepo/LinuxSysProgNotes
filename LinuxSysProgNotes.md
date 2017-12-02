@@ -17,9 +17,19 @@ Notes on Linux System Programming.
 * [UbuntuNotes](https://github.com/GitLeeRepo/UbuntuNotes/blob/master/UbuntuNotes.md#overview) - General Ubuntu info.
 * [linux_syscalls.txt](https://github.com/GitLeeRepo/LinuxSysProgNotes/blob/master/linux_syscalls.txt) - list of syscalls.
 
+# Terminology and Concepts
+
+* **APB** - ensures a **binary** compatible interface between applications.  They deal with calling conventions, byte order, register usage, linking, architecture dependent system call methods, etc.
+* **API** - ensures a **source** compatible interface between applications.
+* **glibc** - the C library on **GNU/Linux** system.  It provides the wrapper functions for the System Calls, among other standard libraries.
+
 # Linux/Unix System Calls
 
 System calls are the primary way in which the operating system kernel exposes the functionality it offers to the **user mode** programs.  It provides the mechanism to run operations in **kernel mode** in order to peform instructions which operate on the hardware, cpu, system memory, etc. that would otherwise be hidden from the **user mode** program.  The system call is moved to within the context of the user program's stack, which eliminates the need of an expensive context switch between the two modes.
+
+At the lower level, system calls in x86 architectures are handled by interupt 0x80, with the **ax** register containing the system call number.  If the sys call has five or less parameters they are passed in registers **ebx, ecx, edx, esi, and edi**.  In the rare case there are more han five a single register is used to point to a memory buffer is user space that contains the paramenters.
+
+At the higher level, these system calls are wrapped in calls handled by the C library (libc, i.e., **glibc** on Linux).  Most higher level languages access the system calls through the **glibc** library, not just C and C++ programs.  Many of the higher level languages and interpreters are written in C and/or C++.
 
 Based on two standards:
 * **POSIX** - Portable Operating System Interface for Unix
