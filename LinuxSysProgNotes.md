@@ -16,6 +16,7 @@ Notes on Linux System Programming.
 ## YouTube Videos
 
 * [Unix System Calls](https://www.youtube.com/watch?v=xHu7qI1gDPA&t=2422s) - two part series
+* [99 Part C Programming in Linux Series](https://www.youtube.com/watch?v=CKNjXvMB0MY&list=PLypxmOPCOkHXbJhUgjRaV2pD9MJkIArhg)
 
 ## My Other Notes
 
