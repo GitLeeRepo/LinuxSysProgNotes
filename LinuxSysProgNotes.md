@@ -4,6 +4,11 @@ Notes on Linux System Programming.
 
 # References
 
+## Books
+
+* [Linux System Programming: Talking Directly to the Kernel and C Library 2nd Edition](https://www.amazon.com/Linux-System-Programming-Talking-Directly/dp/1449339530/ref=mt_paperback?_encoding=UTF8&me=)
+* [The Linux Programming Interface: A Linux and UNIX System Programming Handbook](https://www.amazon.com/Linux-Programming-Interface-System-Handbook/dp/1593272200/ref=cm_cr_arp_d_product_top?ie=UTF8)
+
 ## Online Books
 
 * [Linux Device Drivers v3](https://lwn.net/Kernel/LDD3/) - print version of the O'Reilly book available [here](https://www.amazon.com/Linux-Device-Drivers-Jonathan-Corbet/dp/0596005903/ref=cm_cr_arp_d_product_top?ie=UTF8).
