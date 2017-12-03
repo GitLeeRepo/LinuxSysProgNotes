@@ -54,7 +54,8 @@ dkms.conf
 # Executables
 
 calledbyexec
-copyfile
+copybetter
+copysimple
 dispenv
 execprog
 execself

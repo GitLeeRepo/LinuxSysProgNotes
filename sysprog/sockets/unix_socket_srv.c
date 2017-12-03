@@ -5,14 +5,10 @@
 //
 //  Use this in conjunctions with: unix_socket_clnt.c
 
-#include "unix_socket.h"
+#include "socket.h"
 #define BACKLOG 5    // size of queued up requests
 
-void die(char *msg) {
-    printf("%s\n", msg);
-    exit(5);
-}
-//test
+
 int main(int argc, char *argv[]) {
     struct sockaddr_un addr;
     int socketfd, connectfd;
@@ -64,3 +60,4 @@ int main(int argc, char *argv[]) {
             die("close error");
     }
 }
+

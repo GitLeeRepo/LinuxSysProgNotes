@@ -5,13 +5,7 @@
 //
 //  Use this in conjunctions with: tcp_socket_srv.c
 
-#include "unix_socket.h"
-
-
-void die(char *msg) {
-    printf("%s\n", msg);
-    exit(5);
-}
+#include "socket.h"
 
 int main(int argc, char *argv[]) {
     struct sockaddr_in addr;
@@ -47,3 +41,4 @@ int main(int argc, char *argv[]) {
 
     exit(0);         
 }
+

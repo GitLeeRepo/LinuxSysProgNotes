@@ -15,6 +15,11 @@
 #include <unistd.h>    
 #include <errno.h>      
 #include <string.h>     
+
+// common functions
+void die(char *msg);
+void info_die(char *msg);
+
 #endif
 
 #define SOCKET_PATH "/tmp/unix_socket"

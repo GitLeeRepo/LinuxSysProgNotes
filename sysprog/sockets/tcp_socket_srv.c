@@ -5,13 +5,8 @@
 //
 //  Use this in conjunctions with: tcp_socket_clnt.c
 
-#include "unix_socket.h"
+#include "socket.h"
 #define BACKLOG 5  // size of queued requests
-
-void die(char *msg) {
-    printf("%s\n", msg);
-    exit(5);
-}
 
 int main(int argc, char *argv[]) {
     struct sockaddr_in addr;
