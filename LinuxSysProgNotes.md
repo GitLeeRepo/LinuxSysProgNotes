@@ -251,4 +251,18 @@ Note: if you use **inet_addr()** to assign the IP address, you don't need to use
 
 Note: on systems where the network and host order are the same, these functions do not peform any conversion, simply passing the number on unchanged.  Therefore, these functions should be used regardless to provide the greatest portability.
 
+# Error Handling
 
+## List of errno Constants
+
+```c
+EPERM   1   ECHILD  10   ENODEV     19  ENOSPC  28
+ENOENT  2   EAGAIN  11   ENOTDIR    20  ESPIPE  29
+ESRCH   3   ENOMEM  12   EISDIR     21  EROFS   30
+EINTR   4   EACCES  13   EINVAL     22  EMLINK  31
+EIO     5   EFAULT  14   ENFILE     23  EPIPE   32
+ENXIO   6   ENOTBLK 15   EMFILE     24  EDOM    33
+E2BIG   7   EBUSY   16   ENOTTY     25  ERANGE  34
+ENOEXEC 8   EEXIST  17   ETXTBSY    26
+EBADF   9   EXDEV   18   EFBIG      27
+```
