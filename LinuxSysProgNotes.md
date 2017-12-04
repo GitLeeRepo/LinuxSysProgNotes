@@ -160,6 +160,51 @@ Functions for controlling processes:
 
 **Signals** stop the execution of the program performing either a predefined action, such as terminating a program, or calling a user defined handler for that signal.  Some signals such as **SIGKILL** and **SIGSTOP** will always terminate or stop the process, but many other can be handled by the process, including choosing to ignore the signal.
 
+## Signal List
+
+From **kill -L** command
+
+```bash
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+```
+
+## Examples
+
+### Simple Signal Handler
+
+```c
+// Ctrl-C handler
+static void sigint_handler(int signo) {
+    printf("Done! %d \n", signo);
+
+    close(fd);
+    unlink(npipe);
+    exit(0);
+}
+
+int main(int argc, char *argv[]) {
+    // register the signal handler for SIGINT (Ctrl-C)
+    if (signal (SIGINT, sigint_handler) == SIG_ERR) {
+        printf("Signal Error\n");
+        exit(5);
+    }
+    
+    ...
+    
+```
+
 # Sockets
 
 Sockets are an IPC (interprocess communication) mechanism that allows data to be exchanged between application, whether on the same host (as in AF_UNIX Unix Domain type socket) or between different hosts over a network (as in the AF_INET and AF_INET6 type sockets for the IPv4 and IPv6 domains respectively).
