@@ -199,11 +199,11 @@ int main(int argc, char *argv[]) {
     if (signal (SIGINT, sigint_handler) == SIG_ERR) {
         printf("Signal Error\n");
         exit(5);
-    }
-    
+    }    
     ...
-    
+}
 ```
+Note: Ctrl-C (SIGINT which equals **2**) will get trapped/handle allow some clean-up.  Kill -s 2 \<process id\> also allows SIGINT to be handled here, but **kill 2 \<process id\>** did not get handled, it instead just terminated the program.
 
 # Sockets
 
