@@ -22,24 +22,23 @@
 
 int main(int argc, char *argv[]) {
     const int MAX_RUNS = 10;
-    const char *msg = "provide at least one argument, the first argument must be an integer > 1 and <= %d\n";
+    const char *msg = "provide at least one argument, the first argument must be an integer > 1 and <=";
 
-    if (argc < 1) {
-        printf(msg, MAX_RUNS);
+    if (argc < 2) {
+        printf("%s %d\n", msg, MAX_RUNS);
         exit(1);
     }
 
     int arg1 = atoi(argv[1]);
     if (arg1 < 1 || arg1 > MAX_RUNS) {
-        printf(msg, MAX_RUNS);
+        printf("%s %d\n", msg, MAX_RUNS);
         exit(1);
     }
 
     // we will note that the pid is the same as the parent for each instance
     printf("execself pid: %d\n", (int) getpid());
 
-    int i;
-    for (i = 0; i < argc; i++) {
+    for (int i = 0; i < argc; i++) {
         printf("arg %d: %s\n", i, argv[i]);
         sleep(1);
     }

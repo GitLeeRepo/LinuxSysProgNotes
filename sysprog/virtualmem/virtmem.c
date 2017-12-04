@@ -25,8 +25,7 @@ main(int argc, char *argv[])
     *p = ((getpid() %2) ? 1 : 20);
 
     printf("\n");
-    int i;
-    for (i = 1; i < 21; i++) {
+    for (int i = 1; i < 21; i++) {
         sleep(1);
         printf("pid: (%d); address pointed to by p: %p; p value (alloc on heap): %d\n", getpid(), p, *p);
 

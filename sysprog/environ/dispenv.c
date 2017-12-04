@@ -12,9 +12,8 @@ extern char **environ;
 
 int main(int argc, char *argv[])
 {
-    char **ep; // pointer to walk through the list of environment variables
-
-    for (ep = environ; *ep != NULL; ep++)
+    // use ep pointer to walk through the list of environment variables
+    for (char **ep = environ; *ep != NULL; ep++)
         puts(*ep);
 
     // use getenv() to display the value of the 'SHELL' environment variable

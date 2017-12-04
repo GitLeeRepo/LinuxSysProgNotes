@@ -62,6 +62,7 @@ execself
 filestats
 forkexec
 multiprog
+readpipe
 readstdin
 simplefork
 tcp_socket_clnt
@@ -69,3 +70,5 @@ tcp_socket_srv
 unix_socket_srv
 unix_socket_clnt
 virtmem
+writepipe
+

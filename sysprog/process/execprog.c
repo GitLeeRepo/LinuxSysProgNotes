@@ -23,8 +23,7 @@ int main(int argc, char *argv[]) {
     printf("execprog pid: %d\n", (int) getpid());
 
     // print out the command line args
-    int i;
-    for (i = 0; i < argc; i++) {
+    for (int i = 0; i < argc; i++) {
         printf("arg %d: %s\n", i, argv[i]);
     }
 

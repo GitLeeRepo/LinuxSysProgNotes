@@ -27,8 +27,7 @@ int main(int argc, char *argv[]) {
     // exec'ed this program
     printf("calledbyexec pid: %d\n", (int) getpid());
 
-    int i;
-    for (i = 0; i < argc; i++) {
+    for (int i = 0; i < argc; i++) {
         printf("arg %d: %s\n", i, argv[i]);
     }
     return 0;
