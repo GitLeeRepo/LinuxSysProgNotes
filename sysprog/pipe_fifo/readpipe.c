@@ -37,11 +37,11 @@ static void sigint_handler(int signo) {
         sigStr[0] = '\0';
         
     // printf not always good idea in reentrant code, but ok here
-    printf("\b\bDone! Received signal number: %d %s\n", signo, sigStr);
+    printf("\b\bDone! Received signal number: %d %s - %s\n", signo, sigStr, sys_siglist[signo]);
 
     close(fd);
     unlink(npipe);
-    exit(0);
+    exit(0); 
 }
 
 int main(int argc, char *argv[]) {

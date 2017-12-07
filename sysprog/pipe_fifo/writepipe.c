@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     strcpy(buf, msg);
 
     // local header
-    printf("\nWriting \"%s\" to named pipe", buf);
+    printf("\nWriting \"%s\" to named pipe\n", buf);
 
     // create named pipe (fifo)
     char *npipe="/tmp/npipe";

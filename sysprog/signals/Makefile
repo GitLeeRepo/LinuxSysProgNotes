@@ -6,8 +6,8 @@
 # recompiles the specified files and header if they have changed since last 
 # compile
 
-EXE = copysimple copybetter readstdin
-INCFILES =
+EXE = simplesignals
+INCFILES = signals.h
 LDLIBS = ~/source/c/commonlib/common.o
 CC=gcc
 CFLAGS = -gdwarf -Wall

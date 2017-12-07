@@ -8,7 +8,7 @@
 
 EXE = writepipe readpipe
 INCFILES = pipe.h
-LDLIBS = pipe_fifo_common.o
+LDLIBS = ~/source/c/commonlib/common.o
 CC=gcc
 CFLAGS = -gdwarf -Wall
 

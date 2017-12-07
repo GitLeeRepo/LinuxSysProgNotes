@@ -8,7 +8,7 @@
 
 EXE = unix_socket_srv unix_socket_clnt tcp_socket_srv tcp_socket_clnt
 INCFILES = socket.h
-LDLIBS = sockets_common.o
+LDLIBS = ~/source/c/commonlib/common.o
 CC=gcc
 CFLAGS = -gdwarf -Wall
 
