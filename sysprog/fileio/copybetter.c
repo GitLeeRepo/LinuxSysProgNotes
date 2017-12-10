@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
-#include "fileio.h"
+#include "../commonlib/common.h"
 
 #ifndef BUF_SIZE        // Allow "cc -D" to override definition 
 #define BUF_SIZE 1024

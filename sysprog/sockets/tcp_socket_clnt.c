@@ -5,6 +5,7 @@
 //
 //  Use this in conjunctions with: tcp_socket_srv.c
 
+#include "../commonlib/common.h"
 #include "socket.h"
 
 int main(int argc, char *argv[]) {

@@ -5,6 +5,7 @@
 //
 //  Use this in conjunctions with: tcp_socket_clnt.c
 
+#include "../commonlib/common.h"
 #include "socket.h"
 #define BACKLOG 5  // size of queued requests
 

@@ -16,9 +16,6 @@
 #include <errno.h>      
 #include <string.h>     
 
-// common functions
-void die(char *msg);
-void info_die(char *msg);
 
 #endif
 

@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <errno.h>
+#include "../commonlib/common.h"
 #include "pipe.h"
 
 int main(int argc, char *argv[]) {

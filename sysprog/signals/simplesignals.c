@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <unistd.h>
 #include <signal.h>
-#include "signals.h"
+#include "../commonlib/common.h"
 
 static void signal_handler (int signo) {
     if (signo == SIGINT)

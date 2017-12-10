@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <signal.h>
 #include <errno.h>
+#include "../commonlib/common.h"
 #include "pipe.h"
 
 // global so it is visble to signal event handler

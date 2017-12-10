@@ -65,6 +65,7 @@ multiprog
 readpipe
 readstdin
 simplefork
+simplesignals
 tcp_socket_clnt
 tcp_socket_srv
 unix_socket_srv
