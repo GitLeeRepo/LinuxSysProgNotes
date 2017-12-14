@@ -224,7 +224,7 @@ Sockets are an IPC (interprocess communication) mechanism that allows data to be
 
 * **socket()** - creates the new socket returning a file descriptor
 * **bind()** - binds the address to a socket, through the sockaddr structure (the generic struct cast to by the specific domain ones) and the socket's file descriptor.  Typically used by server (passive socket), rather than **connect()**
-* **listen()** - used by stream sockets to accept incomming connections from other sockets
+* **listen()** - used by stream sockets to accept incoming connections from other sockets
 * **accept()** - accepts the connection from a peer, creating a local socket reference to the peer socket.  It is a blocking call that will block further execution until a connection is accepted.
 * **connect()** - establishes the connection with another socket. Typically used by client (active socket), rather than **bind()**
 
@@ -245,11 +245,11 @@ Because different systems across a network may use different byte ordering of nu
 * **ntohl()** - network to host long (32-bit)
 * **ntohs()** - network to host short (16-bit)
 
-Note: if you don't use **htons()** for the port assignment on x86/x54 Linux the port assigned will not match the port displayed by the **netstat** utility.  For example, assigning port **5025** will display as port **41235** to netstat.  This is easy to see using hex notation, **5025** is **0x13a1 hex**, and **41235** is **0xa113 hex**.  Since every two digits of hex represent a byte you can see the **13** and **a1** are reversed between the two.  But as long as you use this function, the **netstat** result will match the port number assigned.
+Note: if you don't use **htons()** for the port assignment on x86/x64 Linux the port assigned will not match the port displayed by the **netstat** utility.  For example, assigning port **5025** will display as port **41235** to netstat.  This is easy to see using hex notation, **5025** is **0x13a1 hex**, and **41235** is **0xa113 hex**.  Since every two digits of hex represent a byte you can see the **13** and **a1** are reversed between the two.  But as long as you use this function, the **netstat** result will match the port number assigned.
 
 Note: if you use **inet_addr()** to assign the IP address, you don't need to use **htonl**, since **inet_addr()** performs the conversion for you.
 
-Note: on systems where the network and host order are the same, these functions do not peform any conversion, simply passing the number on unchanged.  Therefore, these functions should be used regardless to provide the greatest portability.
+Note: on systems where the network and host order are the same, these functions do not perform any conversion, simply passing the number on unchanged.  Therefore, these functions should be used regardless to provide the greatest portability.
 
 # Error Handling
 
