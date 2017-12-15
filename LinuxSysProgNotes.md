@@ -76,7 +76,7 @@ A Linux file system is a **byte oriented** file system, unlike some file systems
 
 A single file can be opened multiple times, either from multiple processes or within the same process, with each opened instance of a file given its own **file descriptor**, with a single **file descriptor** also capable of being shared across multiple processes (i.e., opened by one process, but read/written by other processes).
 
-Files and directories are directly accessed by **inodes**, not the filename itself.  Filenames are linked to **inodes** in the **directory** file (remembering the directory is itself a file, which must also be linked to an **inode**).  The **indode** contains all other information on a file, except for its filename, such as its size, permissions, owner, timestamps, and pointers to the actual disk blocks that contain the files data (a large file will have many pointers to various blocks of data on disk).  **Inodes** are unique to the file system, but not unique across file systems.
+Files and directories are directly accessed by **inodes**, not the filename itself.  Filenames are linked to **inodes** in the **directory** file (remembering the directory is itself a file, which must also be linked to an **inode**).  The **inode** contains all other information on a file, except for its filename, such as its size, permissions, owner, timestamps, and pointers to the actual disk blocks that contain the files data (a large file will have many pointers to various blocks of data on disk).  **Inodes** are unique to the file system, but not unique across file systems.
 
 **Inodes** for files and directories can be list using the **ls -i** or **ls -li** options.  The number of **inodes** on a given file system is limited.  You can see the total number and available number of **inodes** on a given file system with the following command:
 
@@ -95,14 +95,14 @@ As mentioned earlier, this section is concerned with **regular files*, **directo
 
 Special files are of four types:
 
-* **block devices** - accessed as an **array of bytes** and are typically **storage devices** such as harddisks, cdroms, and flash memory.  Block devices do not need to be accessed in a linear manner, but can be accessed based on the **location within the array of bytes**.
+* **block devices** - accessed as an **array of bytes** and are typically **storage devices** such as hard disks, cdroms, and flash memory.  Block devices do not need to be accessed in a linear manner, but can be accessed based on the **location within the array of bytes**.
 * **character devices** - accessed as a stream of bytes using a queue (FIFO) in a **linear** manner.   They include **keyboards** and **terminals**.
-* **named pipes** - a **regular pipe** as used when piping data between programs on the command line is stored in memory, whereas a **named pipe** is a **special file** that can be accessed on the filesystem by multiple processes for **IPC (interprocess communication** purposes.
-* **Unix domain sockets** - sockets in general are an **IPC** mechanism for communicating between two proceses, whether on the same host or across a network.  **Unix domain sockets** are used to communicate on the same host and use a **special file** on the file system, whereas **network sockets** are NOT special files on the file system, but rather an address to a host and port.
+* **named pipes** - a **regular pipe** as used when piping data between programs on the command line is stored in memory, whereas a **named pipe** is a **special file** that can be accessed on the file system by multiple processes for **IPC (interprocess communication** purposes.
+* **Unix domain sockets** - sockets in general are an **IPC** mechanism for communicating between two processes, whether on the same host or across a network.  **Unix domain sockets** are used to communicate on the same host and use a **special file** on the file system, whereas **network sockets** are NOT special files on the file system, but rather an address to a host and port.
 
 ## File systems and Namespaces
 
-A **file system** is a collection of files and directories contained within a hierchial **namespace**.  There is a single (root) namespace in which all filesystems are **mounted** to a **mount point** within the root namespace.  There is only one required **root file system**, but a system will typically have multiple filesystems.  A filesystem does not have to reside on disk, it can exist in memory or in another network location.
+A **file system** is a collection of files and directories contained within a hierarchical **namespace**.  There is a single (root) namespace in which all file systems are **mounted** to a **mount point** within the root namespace.  There is only one required **root file system**, but a system will typically have multiple file systems.  A file system does not have to reside on disk, it can exist in memory or in another network location.
 
 **File systems** are block devices with the smallest addressable unit being a **sector**, which must be a **power of 2** size, with **512 bytes** being typical.  The smallest **logically addressable** unit is a **block** which is typically a **power of 2** multiple of the sector size, with **512**, **1024** and **4096** bytes being typical.  The **block** size must be smaller than the **page** sized which is the **virtual memory** swapable files.
 
@@ -110,10 +110,10 @@ A **file system** is a collection of files and directories contained within a hi
 
 Processes are executable object code, and its associated data and resources, they keep track of the following:
 
-* **Address Space** - the virutal address space of the process (shown here from lowest to highest memory locations)
-  * **Code** - stored in the **text segment** of memory and originating in the binary excuatble file.
+* **Address Space** - the virtual address space of the process (shown here from lowest to highest memory locations)
+  * **Code** - stored in the **text segment** of memory and originating in the binary executable file.
   * **Initialized Data** - stored in the **data segment** of memory with the initial values loaded from the binary file.
-  * **Uninitialized Data** - stored in the **bss segment** of memory, but not found in the binary file since they are all initilized to zero.
+  * **Uninitialized Data** - stored in the **bss segment** of memory, but not found in the binary file since they are all initialized to zero.
   * **Heap** - dynamically allocated memory
   * **Stack** - local variables and function return addresses
   * **Kernel Syscall table** - stored in **user space** to facilitate calls into **kernel space**
@@ -123,9 +123,9 @@ Processes are executable object code, and its associated data and resources, the
 * **Current Directory** 
 * **Root Directory**
 
-Because Linux is a **pre-emptive multitasking** and **virtual memory** operating system, each process appears to have sole control of the system resources and memory, although the kenel is give multiple process access to the system and its memory through the **scheduler** which gives each process a slice of processor time.
+Because Linux is a **pre-emptive multitasking** and **virtual memory** operating system, each process appears to have sole control of the system resources and memory, although the kernel is give multiple process access to the system and its memory through the **scheduler** which gives each process a slice of processor time.
 
-Process are created using a hierarch of process in a parent/child relationship, with all processes being a decendent of the **init** process.  New processes are create with the **fork()** system call which creates a copy of the parent (details in subsequent section).  When the child terminates it returns its status to the parent.  If the parent terminated first, by not properly waiting on the child process to terminate first, the child becomes a **zombie** process that becomes the responsibilty of the **init** process to eventually terminate.
+Process are created using a hierarchical of process in a parent/child relationship, with all processes being a descendant of the **init** process.  New processes are create with the **fork()** system call which creates a copy of the parent (details in subsequent section).  When the child terminates it returns its status to the parent.  If the parent terminated first, by not properly waiting on the child process to terminate first, the child becomes a **zombie** process that becomes the responsibility of the **init** process to eventually terminate.
 
 ## Threads
 
@@ -141,7 +141,7 @@ Each process is associated with a UID (user id) and has the privileges and permi
 
 ## Creation of New Processes
 
-New processes are creating by making a copy of the parent process (stack, data, heap, and text segments, along with file descriptors, environemnt, etc), using **fork()**.  On the other hand **exec()** type functions discards the existing programs stack, data, heap, and text segments.  A **fork()** is often followed by an **exec()** type function, but this is not always the case, and in several cases it is useful to do just a **fork()**.
+New processes are creating by making a copy of the parent process (stack, data, heap, and text segments, along with file descriptors, environment, etc), using **fork()**.  On the other hand **exec()** type functions discards the existing programs stack, data, heap, and text segments.  A **fork()** is often followed by an **exec()** type function, but this is not always the case, and in several cases it is useful to do just a **fork()**.
 
 Note that with the **fork()** even though it receives the parents data, environment, etc., it is a copy, and while they start the same they diverge as each process makes its own changes.  However, the code (text segment) is the same for the two processes and does not diverge.  It is also important to note that each is running in its own **virtual memory space**.
 
@@ -150,7 +150,7 @@ Note for efficiency the actual data itself is not copied from parent to child, b
 Functions for controlling processes:
 
 * **fork()** - the parent process creating a new child process, they both continue run the same program code
-* **execve()** - this does NOT create a new proceess, but loads a new program into an existing processes memory, such as in the case of a newly forked child process.  The parents original code and data are discard with a new executable loaded.  It does retain the parents environment and file descriptors.  
+* **execve()** - this does NOT create a new processes, but loads a new program into an existing processes memory, such as in the case of a newly forked child process.  The parents original code and data are discard with a new executable loaded.  It does retain the parents environment and file descriptors.  
 * **wait()** - used by a parent to wait on the termination of a child process
 * **exit()** - terminates the process
 
