@@ -123,7 +123,7 @@ Processes are executable object code, and its associated data and resources, the
 * **Current Directory** 
 * **Root Directory**
 
-Because Linux is a **pre-emptive multitasking** and **virtual memory** operating system, each process appears to have sole control of the system resources and memory, although the kernel is give multiple process access to the system and its memory through the **scheduler** which gives each process a slice of processor time.
+Because Linux is a **preemptive multitasking** and **virtual memory** operating system, each process appears to have sole control of the system resources and memory, although the kernel is give multiple process access to the system and its memory through the **scheduler** which gives each process a slice of processor time.
 
 Process are created using a hierarchical of process in a parent/child relationship, with all processes being a descendant of the **init** process.  New processes are create with the **fork()** system call which creates a copy of the parent (details in subsequent section).  When the child terminates it returns its status to the parent.  If the parent terminated first, by not properly waiting on the child process to terminate first, the child becomes a **zombie** process that becomes the responsibility of the **init** process to eventually terminate.
 
