@@ -1,1 +1,2 @@
-test.txt
+Test file to symbolically link to, inorder to test filestat's symbolic check
+
